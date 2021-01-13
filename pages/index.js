@@ -1,53 +1,46 @@
 import Head from 'next/head'
-import BlogPostList from '../components/blog-post-list'
+import axios from 'axios'
+import PostList from '../components/blog-post-list'
 import styles from '../styles/Home.module.css'
 
 function Home({ posts }) {
-  if (!posts) return <p>loading</p>
   return (
     <div className={styles.container}>
       <Head>
-        <title>Next App</title>
+        <title>Next Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to this Next.js-based blog!
         </h1>
 
-        <BlogPostList posts={posts} />
+        <PostList posts={posts} />
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
 }
 
-// This function gets called at build time
+// Cette fonction permet de récupérer les données au moment du _build_
+// pour pouvoir effectuer le pré-rendu des pages
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const res = await fetch('https://my-json-server.typicode.com/bhubr/fake-blog-api/posts')
-  const posts = await res.json()
+  // On aurait pu utiliser async/await
+  // Comme on ne l'a pas fait il faut return le axios.get
+  return axios.get('https://my-json-server.typicode.com/bhubr/fake-blog-api/posts')
+    .then(res => {
+      return {
+        // By returning { props: { posts } }, the Home component
+        // will receive `posts` as a prop at build time
+        // -> renvoie un objet contenant des props, passé au composant Home
+        // lors du build
+        props: {
+          posts: res.data, // res.data => tableau d'articles
+        },
+      }
+    })
 
-  console.log(posts)
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts,
-    },
-  }
 }
 
 export default Home

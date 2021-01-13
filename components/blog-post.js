@@ -8,7 +8,7 @@ function BlogPost({ slug, title, content }) {
       <div>{content.substr(0, 10)}</div>
       <Link
         href={{
-          pathname: '/[slug]',
+          pathname: '/post/[slug]',
           query: { slug },
         }}
       >
