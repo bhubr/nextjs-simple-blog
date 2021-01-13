@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import BlogPostList from '../components/blog-post-list'
 import styles from '../styles/Home.module.css'
-import db from '../static/db'
 
-export default function Home() {
+function Home({ posts }) {
+  if (!posts) return <p>loading</p>
   return (
     <div className={styles.container}>
       <Head>
@@ -16,7 +16,7 @@ export default function Home() {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <BlogPostList posts={db.posts} />
+        <BlogPostList posts={posts} />
       </main>
 
       <footer className={styles.footer}>
@@ -32,3 +32,22 @@ export default function Home() {
     </div>
   )
 }
+
+// This function gets called at build time
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('https://my-json-server.typicode.com/bhubr/fake-blog-api/posts')
+  const posts = await res.json()
+
+  console.log(posts)
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  }
+}
+
+export default Home
