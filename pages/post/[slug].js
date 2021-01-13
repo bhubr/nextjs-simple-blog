@@ -15,6 +15,10 @@ function PostDetails({ post }) {
   }
   return (
     <article className="BlogPostDetails">
+    <Head>
+      <title>{post.title}</title>
+      <meta name="description" content={post.description} />
+    </Head>
       <h1>{post.title}</h1>
       <div>{post.content}</div>
     </article>

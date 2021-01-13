@@ -12,7 +12,8 @@ function Home({ posts, error }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Next Blog</title>
+        <title>Simple Blog avec Next.js</title>
+        <meta name="description" content="Dans l'optique de montrer comment améliorer le SEO d'une app React, on a converti un blog en app Next.js." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
