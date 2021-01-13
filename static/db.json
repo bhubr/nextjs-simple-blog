@@ -1,0 +1,35 @@
+{
+  "pages": [
+    {
+      "id": 1,
+      "title": "Home",
+      "description": "blog about web development - javascript, node.js, react"
+    },
+    {
+      "id": 2,
+      "title": "Blog",
+      "description": "check out our articles about web development"
+    },
+    {
+      "id": 2,
+      "title": "About",
+      "description": "blog about web development - who are we"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "slug": "introduction-to-seo-with-react",
+      "title": "Introduction to SEO with React",
+      "content": "SEO with React is complex.",
+      "description": "react, seo, react-helmet, react-snap"
+    },
+    {
+      "id": 2,
+      "slug": "another-article",
+      "title": "Another article",
+      "content": "There is some content.",
+      "description": ""
+    }
+  ]
+}
