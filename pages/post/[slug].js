@@ -15,7 +15,7 @@ function PostDetails({ post }) {
   }
   return (
     <article className="BlogPostDetails">
-      <h2>{post.title}</h2>
+      <h1>{post.title}</h1>
       <div>{post.content}</div>
     </article>
   );
