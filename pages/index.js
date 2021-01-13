@@ -3,7 +3,12 @@ import axios from 'axios'
 import PostList from '../components/blog-post-list'
 import styles from '../styles/Home.module.css'
 
-function Home({ posts }) {
+function Home({ posts, error }) {
+  // On aurait pu intégrer cela dans la partie ci-dessous,
+  // avec un ternaire
+  if (error) return (
+    <p>Une erreur est survenue : {error.message}</p>
+  );
   return (
     <div className={styles.container}>
       <Head>
@@ -13,7 +18,7 @@ function Home({ posts }) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to this Next.js-based blog!
+          Bienvenue sur ce blog basé sur Next.js !
         </h1>
 
         <PostList posts={posts} />
@@ -37,6 +42,14 @@ export async function getStaticProps() {
         props: {
           posts: res.data, // res.data => tableau d'articles
         },
+      }
+    })
+    .catch(error => {
+      return {
+        props: {
+          posts: [],
+          error
+        }
       }
     })
 
